@@ -1,22 +1,31 @@
-<div>
-    {% for pet in pets %}
-        <div class="petname">
-            <a href="{% url 'pet_detail' pet.id %}">
-                <h3>
-                    {{ pet.name | capfirst }}
-                </h3>
-            </a>
-            <p>
-                {{ pet.species }}
-            </p>
-            {% if pet.breed %}
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="pet-container">
+        {% for pet in pets %}
+            <div class="petname">
+                <a href="{% url 'pet_detail' pet.id %}">
+                    <h3>
+                        {{ pet.name | capfirst }}
+                    </h3>
+                </a>
                 <p>
-                    Breed: {{ pet.breed }}
+                    {{ pet.species }}
                 </p>
-            {% endif %}
-            <p class="hidden">
-                {{pet.description}}
-            </p>
-        </div>
-    {% endfor %}
-</div>
+                {% if pet.breed %}
+                    <p>
+                        Breed: {{ pet.breed }}
+                    </p>
+                {% endif %}
+                <p class="hidden">
+                    {{pet.description}}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

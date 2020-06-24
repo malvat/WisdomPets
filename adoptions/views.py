@@ -3,9 +3,9 @@ from django.http import Http404
 from .models import Pet
 
 def home(request):
-    pet = Pet.objects.all()
+    pets = Pet.objects.all()
     return render(request, 'home.html', {
-        "pets": pet,
+        "pets": pets,
     })
 
 def pet_detail(request, pet_id):
