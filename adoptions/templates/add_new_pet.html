@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>
+            Add New Pet
+        </title>
+    </head>
+    <body>
+        <form action = {% url 'add_new_pet' %} method = "post">
+            {% csrf_token %}
+            {{ petform }}
+            <input type="submit" value="Add Pet">
+        </form>
+        <h2>
+            {{ note }}
+        </h2>
+    </body>
+</html>
