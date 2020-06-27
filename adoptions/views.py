@@ -44,7 +44,24 @@ def add_new_pet(request):
 
 def edit_pet(request, pet_id):
     pet = Pet.objects.get(id=pet_id)
-    filled_form = PetForm(instance=pet)
-    return render(request, 'edit_pet.html', {
-        'filled_form': filled_form,
-    })
+    pets = Pet.objects.all()
+    if(request.method=="POST"):
+        filled_form = PetForm(request.POST, instance=pet)
+        if(filled_form.is_valid()):
+            filled_form.save()
+            return render(request, 'home.html', {
+                'pet_id': pet_id,
+                'pets': pets
+            })
+        else:
+            filled_form = PetForm(instance = pet)
+            return render(request, 'edit_pet.html', {
+                'filled_form': filled_form,
+                'pet_id': pet_id,
+            })
+    else:
+        filled_form = PetForm(instance=pet)
+        return render(request, 'edit_pet.html', {
+            'filled_form': filled_form,
+            'pet_id': pet_id,
+        })
