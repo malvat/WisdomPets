@@ -27,4 +27,7 @@
     {% endif %}
     <p>Submitted by: {{pet.submitter}}</p>
     <p>Submitted on: {{ pet.submission_date|date:"M d Y" }}</p>
+    <div>
+        <a href="{% url 'edit_pet' pet.id %}"> Edit pet </a>
+    </div>
 </div>

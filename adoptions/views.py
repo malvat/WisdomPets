@@ -41,3 +41,10 @@ def add_new_pet(request):
         return render(request, 'add_new_pet.html', {
             'petform': form
         })
+
+def edit_pet(request, pet_id):
+    pet = Pet.objects.get(id=pet_id)
+    filled_form = PetForm(instance=pet)
+    return render(request, 'edit_pet.html', {
+        'filled_form': filled_form,
+    })
