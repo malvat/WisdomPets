@@ -21,12 +21,20 @@ def pet_detail(request, pet_id):
 def add_new_pet(request):
     if(request.method == "POST"):
         filled_form = PetForm(request.POST)
+        print(filled_form.errors)
         if(filled_form.is_valid()):
+            filled_form.save()
             note = "Thank you, %s for adding %s" %(filled_form.cleaned_data['submitter'], filled_form.cleaned_data['name']) 
             new_form = PetForm()
             return render(request, 'add_new_pet.html', {
                 'petform': new_form,
                 'note': note
+            })
+        else:
+            new_form = PetForm()
+            return render(request, 'add_new_pet.html', {
+                'petform': new_form,
+                'note': "there was some error"
             })
     else:
         form = PetForm()
