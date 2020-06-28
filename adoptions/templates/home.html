@@ -3,6 +3,11 @@
 {% block 'scripts'%}
     <link rel="stylesheet" href="{% static 'css/styles.css'%}"/>
 {% endblock %}
+
+{% block 'title'%}
+    Wisdom Pets
+{% endblock %}
+
 {% block 'body' %}
     <div class="pet-container">
         {% for pet in pets %}

@@ -3,10 +3,15 @@
 {% block 'scripts' %}
     <link rel="stylesheet" href="{% static 'css/styles.css'%}"/>
 {% endblock 'scripts' %}
+
+{% block 'title'%}
+    Edit Pet
+{% endblock %}
+
 {% block 'body' %}
 <div class="form-container">
     <div class="form">
-        <form action = {% url 'add_new_pet' %} method = "post">
+        <form action = {% url 'edit_pet' pet_id %} method = "post">
             {% csrf_token %}
             <table>
             {{ filled_form.as_table }}

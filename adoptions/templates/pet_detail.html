@@ -3,6 +3,10 @@
 {% block 'scripts'%}
     <link rel="stylesheet" href="{% static 'css/styles.css'%}"/>
 {% endblock %}
+{% block 'title'%}
+    {{ pet.name }}
+{% endblock %}
+
 {% block 'body' %}
     <div class="pet-detail-container">
         <div class="petname petdetail">
