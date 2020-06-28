@@ -1,33 +1,28 @@
-<div>
-    <h3> {{ pet.name | capfirst}} </h3>
-    <p> {{ pet.species }} </p>
-    {% if pet.breed %}
-        <p>
-            Breed: {{ pet.breed }}
-        </p>
-    {% endif %}
-    {% if pet.age %}
-        <p>
-            Age: {{ pet.age }}
-        </p>
-    {% endif %}
-    {% if pet.sex %}
-        <p>
-            Sex: {{ pet.sex }}
-        </p>
-    {% endif %}
-
-    {% if pet.vaccinations.all %}
-        <p> Vaccinations </p>
-        <ul>
-            {% for vaccination in pet.vaccinations.all %}
-                <li> {{ vaccination.name }} </li>
+{% extends 'base.html'%}
+{% load static %}
+{% block 'scripts'%}
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}"/>
+{% endblock %}
+{% block 'body' %}
+    <div class="pet-detail-container">
+        <div class="petname petdetail">
+            <h2>
+                {{ pet.name }}  
+            </h2>
+            Submitter: {{ pet.submitter }} </br>
+            Species: {{ pet.species }} </br>
+            Breed: {{ pet.breed }} </br>
+            Description: {{ pet.description }} </br>
+            Sex: {{ pet.sex }} </br>
+            Submission Date: {{ pet.submission_date }} </br>
+            Age: {{ pet.age }} </br>
+            Vaccination: {% if pet.vaccination %}
+            {% for vaccination in pet.vaccination.all %}
+                {{ vaccination }}
             {% endfor %}
-        </ul>
-    {% endif %}
-    <p>Submitted by: {{pet.submitter}}</p>
-    <p>Submitted on: {{ pet.submission_date|date:"M d Y" }}</p>
-    <div>
-        <a href="{% url 'edit_pet' pet.id %}"> Edit pet </a>
+            {% endif %}
+            </br>
+            <a href="{% url 'edit_pet' pet.id %}"> Edit Information </a>
+        </div>
     </div>
-</div>
+{% endblock %}

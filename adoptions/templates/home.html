@@ -1,10 +1,9 @@
+{% extends 'base.html'%}
 {% load static %}
-<html>
-<head>
+{% block 'scripts'%}
     <link rel="stylesheet" href="{% static 'css/styles.css'%}"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
-<body>
+{% endblock %}
+{% block 'body' %}
     <div class="pet-container">
         {% for pet in pets %}
             <div class="petname">
@@ -27,5 +26,4 @@
             </div>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}
