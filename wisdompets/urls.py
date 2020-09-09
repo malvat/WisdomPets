@@ -23,4 +23,5 @@ urlpatterns = [
     path('adoptions/<int:pet_id>/', views.pet_detail, name="pet_detail"),
     path('adoptions/add-new-pet/', views.add_new_pet, name="add_new_pet"),
     path('adoptions/edit/<int:pet_id>', views.edit_pet, name="edit_pet"),
+    path('adoptions/sign-up', views.sign_up, name="sign_up"),
 ]

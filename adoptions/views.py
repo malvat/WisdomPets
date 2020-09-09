@@ -65,3 +65,6 @@ def edit_pet(request, pet_id):
             'filled_form': filled_form,
             'pet_id': pet_id,
         })
+
+def sign_up(request):
+    return render(request, 'sign_up.html')
