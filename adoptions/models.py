@@ -29,3 +29,14 @@ class Vaccination(models.Model):
         """
         return self.name
 
+
+class User(models.Model):
+    """
+        user that submits or adpots a new pet
+        @author Anim Malvat
+    """
+    first_name =  models.CharField(max_length=50)
+    last_name =  models.CharField(max_length=50)
+    email =  models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+

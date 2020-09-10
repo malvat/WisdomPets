@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from django.http import Http404
 from .models import Pet
+from .models import User
 from .forms import PetForm
+from .forms import UserForm
 
 def home(request):
+    if 'logged_in' in request.session.keys():
+        if not request.session['logged_in']:
+            user_form = UserForm()
+            return render(request, 'sign_in.html', {'form': user_form, 'note': 'Please login first'})
     pets = Pet.objects.all()
+    print(request.session['user'])
     return render(request, 'home.html', {
         "pets": pets,
     })
@@ -67,4 +74,42 @@ def edit_pet(request, pet_id):
         })
 
 def sign_up(request):
-    return render(request, 'sign_up.html')
+    if request.method == "POST" :
+        filled_form = UserForm(request.POST)
+        if filled_form.is_valid():
+            try:
+                user = User.objects.get(email=filled_form.cleaned_data.get("email"))
+                user_form = UserForm()
+                return render(request, 'sign_up.html', {'form': user_form, 'note': 'user already exists'})
+            except User.DoesNotExist:
+                filled_form.save()
+                user_form = UserForm()
+                return render(request, 'sign_in.html', {'form': user_form, 'note': 'Login to proceed'})
+    else:
+        user_form = UserForm()
+        return render(request, 'sign_up.html', {'form': user_form})
+
+def sign_in(request):
+    user_form = UserForm()
+    if request.method == "POST":
+        try: 
+            user = User.objects.get(email=request.POST['email'], password=request.POST['password'])
+            request.session['logged_in'] = True
+            pets = Pet.objects.all()
+            return render(request, 'home.html', {'pets': pets})
+        except User.DoesNotExist:
+            request.session['logged_in'] = False
+            return render(request, 'sign_in.html', {'form': user_form, 'note': 'please try again'})
+    else:
+        if 'logged_in' in request.session.keys():
+            if request.session['logged_in']:
+                pets = Pet.objects.all()
+                return render(request, 'home.html', {'pets': pets})
+        return render(request, 'sign_in.html', {'form': user_form})
+
+def sign_out(request):
+    if 'logged_in' in request.session.keys():
+        if request.session['logged_in']:
+            request.session['logged_in'] = False
+    user_form = UserForm()
+    return render(request, 'sign_in.html', {'form': user_form })

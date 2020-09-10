@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/sign-up.css'%}"/>
 
-
     <title>
         Sign up
     </title>
@@ -18,17 +17,22 @@
   <body>
     <div class="sign-container">
         <div class="form-container">
-          <form action={% url 'sign_up'%} method="POST">
+          <form action={% url 'sign_in'%} method="POST">
+            {% csrf_token %}
             <div class="sign-heading">
-              Sign up
+              Sign In
             </div>
             <div class="sign-sub-heading">
-              You can't buy love
+              Let's get adopting
             </div>
-            {% csrf_token %}
-            <table>
-              {{ form.as_p }}
-            </table>
+            <p>
+                <label for="id_email" > Email </label>
+                <input type="text" name="email" class="form-control" required id="id_email">
+            </p>
+            <p>
+                <label for="id_password"> Password </label>
+                <input type="password" name="password" class="form-control" require id="id_password">
+            </p>
             <input type="submit" class="btn btn-primary" value="SUBMIT">
           </form>
           {{ note }}
